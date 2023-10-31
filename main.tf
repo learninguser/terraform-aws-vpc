@@ -72,9 +72,8 @@ resource "aws_route_table" "public" {
   tags = merge(
     var.common_tags,
     {
-      Name = var.project_name
-    },
-    var.public_route_table_tags
+      Name = "${var.project_name}-public"
+    }
   )
 }
 
@@ -92,6 +91,26 @@ resource "aws_route_table_association" "public" {
   # subnet_id      = element(aws_subnet.public[*].id, count.index)
   route_table_id = aws_route_table.public.id
 }
+
+resource "aws_eip" "eip" {
+  domain = "vpc"
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.eip.id
+  subnet_id = aws_subnet.public[0].id
+
+  tags = merge(
+    var.common_tags,
+    {
+      Name = var.project_name
+    },
+    var.nat_gateway_tags
+  )
+
+  depends_on = [ aws_internet_gateway.gw ]
+}
+
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id

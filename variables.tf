@@ -77,3 +77,7 @@ variable "private_route_table_tags" {
 variable "database_route_table_tags" {
   type = map(any)
 }
+
+variable "nat_gateway_tags" {
+  type = map(any)
+}
