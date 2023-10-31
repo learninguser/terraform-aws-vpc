@@ -32,10 +32,10 @@ variable "igw_tags" {
 
 variable "public_subnet_cidr" {
   type = list(any)
-}
-
-variable "azs" {
-  type = list(any)
+  validation {
+    condition = length(var.public_subnet_cidr) == 2
+    error_message = "Please provide 2 CIDR's for public subnet"
+  }
 }
 
 variable "public_subnet_names" {
