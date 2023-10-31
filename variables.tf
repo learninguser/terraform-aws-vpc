@@ -81,3 +81,7 @@ variable "database_route_table_tags" {
 variable "nat_gateway_tags" {
   type = map(any)
 }
+
+variable "db_subnet_group_tags" {
+  type = map(any)
+}
