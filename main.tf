@@ -27,14 +27,13 @@ resource "aws_subnet" "public" {
   count             = length(var.public_subnet_cidr)
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.public_subnet_cidr[count.index]
-  availability_zone = local.azs
+  availability_zone = local.azs[count.index]
 
   tags = merge(
     var.common_tags,
     {
-      Name = var.project_name
-    },
-    { Name = var.public_subnet_names[count.index] }
+      Name = "${var.project_name}-public-${local.azs[count.index]}"
+    }
   )
 }
 
@@ -42,14 +41,13 @@ resource "aws_subnet" "private" {
   count             = length(var.private_subnet_cidr)
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.private_subnet_cidr[count.index]
-  availability_zone = local.azs
+  availability_zone = local.azs[count.index]
 
   tags = merge(
     var.common_tags,
     {
-      Name = var.project_name
-    },
-    { Name = var.private_subnet_names[count.index] }
+      Name = "${var.project_name}-private-${local.azs[count.index]}"
+    }
   )
 }
 
@@ -57,14 +55,13 @@ resource "aws_subnet" "database" {
   count             = length(var.database_subnet_cidr)
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.database_subnet_cidr[count.index]
-  availability_zone = local.azs
+  availability_zone = local.azs[count.index]
 
   tags = merge(
     var.common_tags,
     {
-      Name = var.project_name
-    },
-    { Name = var.database_subnet_names[count.index] }
+      Name = "${var.project_name}-database-${local.azs[count.index]}"
+    }
   )
 }
 
