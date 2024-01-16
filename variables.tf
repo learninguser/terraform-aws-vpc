@@ -2,6 +2,11 @@ variable "project_name" {
   type = string
 }
 
+variable "environment" {
+  type = string
+  default = "env"
+}
+
 variable "cidr_block" {
   type = string
 }
