@@ -16,10 +16,10 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
   tags = merge(
     var.common_tags,
+    var.igw_tags,
     {
       Name = local.name
-    },
-    var.igw_tags
+    }
   )
 }
 
@@ -102,10 +102,10 @@ resource "aws_nat_gateway" "nat" {
 
   tags = merge(
     var.common_tags,
+    var.nat_gateway_tags,
     {
       Name = local.name
-    },
-    var.nat_gateway_tags
+    }
   )
 
   depends_on = [aws_internet_gateway.gw]
@@ -116,10 +116,11 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
   tags = merge(
     var.common_tags, 
+    var.private_route_table_tags,
     {
       Name = "${local.name}-private"
-    },
-    var.private_route_table_tags)
+    }
+  )
 }
 
 resource "aws_route" "private" {
@@ -139,10 +140,11 @@ resource "aws_route_table" "database" {
   vpc_id = aws_vpc.main.id
   tags = merge(
     var.common_tags, 
+    var.database_route_table_tags,
     {
       Name = "${local.name}-database"
-    },
-    var.database_route_table_tags)
+    }
+  )
 }
 
 resource "aws_route" "database" {
@@ -164,9 +166,9 @@ resource "aws_db_subnet_group" "roboshop" {
 
   tags = merge(
     var.common_tags,
+    var.db_subnet_group_tags,
     {
       Name = local.name
-    },
-    var.db_subnet_group_tags
+    }
   )
 }
