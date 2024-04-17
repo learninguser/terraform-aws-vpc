@@ -34,7 +34,8 @@ resource "aws_subnet" "public" {
     var.common_tags,
     {
       Name = "${local.name}-public-${local.azs[count.index]}"
-    }
+    },
+    var.public_subnet_tags
   )
 }
 
@@ -48,7 +49,8 @@ resource "aws_subnet" "private" {
     var.common_tags,
     {
       Name = "${local.name}-private-${local.azs[count.index]}"
-    }
+    },
+    var.private_subnet_tags
   )
 }
 
@@ -62,7 +64,8 @@ resource "aws_subnet" "database" {
     var.common_tags,
     {
       Name = "${local.name}-database-${local.azs[count.index]}"
-    }
+    },
+    var.database_subnet_tags
   )
 }
 

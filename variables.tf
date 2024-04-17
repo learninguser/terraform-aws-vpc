@@ -114,3 +114,15 @@ variable "acceptor_vpc_id" {
 variable "vpc_peering_tags" {
   default = {}
 }
+
+variable "public_subnet_tags" {
+  default = {}
+}
+
+variable "private_subnet_tags" {
+  default = {}
+}
+
+variable "database_subnet_tags" {
+  default = {}
+}
