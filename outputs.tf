@@ -23,5 +23,5 @@ output "database_subnet_ids" {
 }
 
 output "database_subnet_group_name" {
-  value = aws_db_subnet_group.default.name
+  value = aws_db_subnet_group.roboshop.name
 }
